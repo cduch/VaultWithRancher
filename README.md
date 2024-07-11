@@ -1,4 +1,14 @@
-# 1. Install Vault:
+# Resources for Webinar
+
+based on these HashiCorp tutorials:
+
+- https://developer.hashicorp.com/vault/tutorials/kubernetes/vault-secrets-operator
+- https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-sidecar
+
+
+## Instructions
+
+### 1. Install Vault:
 
 ```
 helm install vault hashicorp/vault -n vault --create-namespace --values vault/vault-custom-values.yaml
@@ -6,7 +16,7 @@ helm install vault hashicorp/vault -n vault --create-namespace --values vault/va
 
 go to Vault UI, enter 1 & 1 as numbers, copy tokens, unseal with unseal-token and login with root token
 
-# 2. Configure Vault:
+### 2. Configure Vault:
 
 open a bash in the previously created vault container:
 
@@ -42,7 +52,7 @@ vault kv put kvv2/webapp/config username="static-user" password="static-password
 exit
 ```
 
-# Install Vault Secrets Operator:
+### 3. Install Vault Secrets Operator:
 
 in your local CLI:
 
@@ -81,7 +91,7 @@ kubectl get secret secretkv -n app -o jsonpath='{.data.password}' | base64 --dec
 
 ```
 
-# TEST THE SIDECAR AGENT INJECTOR
+### 4. Test the Sidecar Injector
 
 go back into the vault container:
 
@@ -140,7 +150,7 @@ sleep 30
 kubectl exec $(kubectl get pod -l app=website -n app -o jsonpath="{.items[0].metadata.name}") -n app --container website -- cat /vault/secrets/database-config.txt
 ```
 
-# cleanup
+#### 5. cleanup
 
 ```
 helm delete vault-operator -n vault-secret-operator-system
