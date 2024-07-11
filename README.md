@@ -3,7 +3,7 @@
 ```
 helm install vault hashicorp/vault -n vault --create-namespace --values vault/vault-custom-values.yaml
 ```
-◊◊
+
 go to Vault UI, enter 1 & 1 as numbers, copy tokens, unseal with unseal-token and login with root token
 
 # 2. Configure Vault:
